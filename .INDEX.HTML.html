@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP - Prestação de Contas SDP | 4ª CRE</title>
+    <!-- Fonte: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #0077cc;
+            --accent: #2c3e50;
+            --surface: #ffffff;
+            --bg: #f0f2f5;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --success: #008f39;
+
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 0.8rem 2rem;
+            border-bottom: 1px solid #e1e4e8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-composite {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 50px;
+        }
+
+        .logo-prefeitura {
+            height: 42px;
+            width: auto;
+            display: block;
+        }
+
+        .brand-divider {
+            height: 32px;
+            width: 1px;
+            background-color: #888;
+            margin: 0 5px;
+        }
+
+        .brand-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #004a80;
+            letter-spacing: 0.2px;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .org-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .cre-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gad-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .date-badge {
+            margin-top: 4px;
+            background: #f0f7ff;
+            color: var(--secondary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border: 1px solid #d0e7ff;
+            display: inline-block;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(160deg, var(--primary) 0%, #001f3f 100%);
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-tag {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .qr-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            width: 160px;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-card:hover { transform: translateY(-5px); }
+
+        .qr-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            mix-blend-mode: multiply;
+            display: block;
+        }
+
+        /* LAYOUT */
+        .wrapper {
+            max-width: 1200px;
+            margin: -3rem auto 3rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        aside {
+            position: sticky;
+            top: 6rem;
+            height: fit-content;
+        }
+
+        .nav-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-list a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-list a:hover {
+            background: #f0f7ff;
+            color: var(--secondary);
+        }
+
+        .nav-list a.active {
+            background: #e6f2ff;
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 3rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .content-card p, .content-card li, .msg-box p {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .msg-box {
+            background: linear-gradient(to right, #f8f9fa, #fff);
+            border-left: 4px solid var(--primary);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .msg-box::before {
+            content: '1ad'; 
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 4rem;
+            color: rgba(0,0,0,0.03);
+        }
+
+        h2.section-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f2f5;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-idx {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,51,102,0.3);
+        }
+
+        .step-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .instruction-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 1.2rem;
+            border-radius: 8px;
+        }
+
+        .sei-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(to bottom, #f9f9f9, #e9e9e9);
+            border: 1px solid #ccc;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #333;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 10px;
+        }
+
+        .data-field {
+            background: white;
+            border: 1px solid #e1e4e8;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .data-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .data-val {
+            font-family: 'Consolas', monospace;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .ai-tool {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .ai-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .ai-btn:hover { background: #002244; }
+
+        .ai-output {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-family: monospace;
+            display: none;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            background: white;
+            padding: 3rem 0;
+            border-top: 1px solid #eee;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+
+        @media (max-width: 850px) {
+            .wrapper { grid-template-columns: 1fr; margin-top: 0; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .qr-card { display: none; }
+            aside { display: none; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .brand-composite { justify-content: center; }
+        }
+    
+        /* CHECKLIST FINAL */
+        .checklist-lead {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .check-item {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e1e4e8;
+            padding: 0.9rem 1rem;
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            column-gap: 0.75rem;
+            align-items: flex-start;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f4fd;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .check-body-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .check-body-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="brand-composite">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Logo_Prefeitura_do_Rio_de_Janeiro_%282021%29.svg/1200px-Logo_Prefeitura_do_Rio_de_Janeiro_%282021%29.svg.png" 
+                 alt="Prefeitura do Rio" class="logo-prefeitura" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='none';">
+            <div class="brand-divider"></div>
+            <div class="brand-text">Educação</div>
+        </div>
+
+        <div class="org-details">
+            <div class="cre-label">4ª Coordenadoria Regional de Educação</div>
+            <div class="gad-label">Gerência de Administração (GAD)</div>
+            <div class="date-badge">
+                <i class="far fa-calendar-alt"></i> Elaboração: Nov/2025
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <span class="hero-tag">Procedimento Operacional Padrão</span>
+            <h1>PRESTAÇÃO DE CONTAS<br>SDP NO SEI!RIO</h1>
+            <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">
+                Guia operacional para diretores(as) e gestores(as) escolares na instrução da Prestação de Contas do SDP diretamente no SEI!RIO.
+            </p>
+        </div>
+
+        <div class="qr-card">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://sei.rio" 
+                 alt="Acesse SEI no Celular" class="qr-img">
+            <div style="font-size: 0.75rem; color: #333; margin-top: 8px; font-weight: 600;">Acesse no celular</div>
+        </div>
+    </div>
+</section>
+
+<div class="wrapper">
+    <aside>
+        <div class="nav-card">
+            <div class="nav-header">Navegação</div>
+            <div class="nav-list">
+                <a href="#msg" class="active"><i class="fas fa-home"></i> Início</a>
+                <a href="#step1"><i class="fas fa-folder-plus"></i> 1. Abertura</a>
+                <a href="#step2"><i class="fas fa-file-signature"></i> 2. Despacho</a>
+                <a href="#step3"><i class="fas fa-file-invoice"></i> 3. Demonstrativo</a>
+                <a href="#step4"><i class="fas fa-receipt"></i> 4. Notas Fiscais</a>
+                <a href="#checklist"><i class="fas fa-list-check"></i> 5. Checklist Final</a>
+                <a href="#tools" style="color: var(--secondary);"><i class="fas fa-magic"></i> Gerador Automático</a>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; text-align: center; border: 1px solid #eee;">
+            <i class="fas fa-headset" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <div style="font-size: 0.9rem; font-weight: 600;">Precisa de apoio?</div>
+            <div style="font-size: 0.8rem; color: #666;">Em caso de dúvidas, contate a GAD/4ª CRE.</div>
+        </div>
+    </aside>
+
+    <main class="content-card">
+
+        <!-- MENSAGEM INICIAL -->
+        <section id="msg">
+            <div class="msg-box">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Prezados(as) Diretores(as),</h3>
+                <p style="margin-bottom: 10px;">
+                    A 4ª Coordenadoria Regional de Educação, por intermédio da Gerência de Administração (GAD), coloca à disposição das unidades escolares este
+                    <strong>Procedimento Operacional Padrão (POP)</strong> para formalização da Prestação de Contas dos recursos do Sistema Descentralizado de Pagamento (SDP) no SEI!RIO.
+                </p>
+                <p style="margin-bottom: 10px;">
+                    O objetivo deste material é padronizar os passos, reduzir dúvidas e conferir maior segurança jurídica, transparência e rastreabilidade às prestações de contas
+                    encaminhadas à 4ª CRE, contribuindo para a boa gestão dos recursos públicos sob responsabilidade de cada unidade escolar.
+                </p>
+                <p>
+                    Ao final, apresentamos um <strong>checklist sintético</strong> e uma ferramenta de <strong>geração automática de minuta de despacho</strong>, concebidos para apoiar a rotina
+                    administrativa das escolas, sem substituir o juízo crítico e a responsabilidade de cada gestão.
+                </p>
+
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 3rem; gap: 2rem; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 2rem;">
+                    <div style="flex: 1; min-width: 220px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 2px;">Fátima das Graças Lima Barros</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Coordenadora – E/4ª CRE</div>
+                    </div>
+                    <div style="flex: 1; min-width: 220px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 2px;">Bianca Barreto da Fonseca Coelho</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Gerente – E/4ª CRE/GAD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASSO 1 -->
+        <section id="step1">
+            <h2 class="section-title"><i class="fas fa-folder-open"></i> 1. Abertura do Processo no SEI!RIO</h2>
+
+            <div class="step">
+                <div class="step-idx">1</div>
+                <div class="step-content">
+                    <h3>Selecionar “Iniciar Processo”</h3>
+                    <p>
+                        Após acessar o SEI!RIO com seu usuário e senha institucionais, localize, no menu lateral esquerdo, o comando
+                        <strong>“Iniciar Processo”</strong>. É por meio dessa funcionalidade que será criada a “capa” do processo de Prestação de Contas do SDP.
+                    </p>
+                    <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; width: fit-content;">
+                        <i class="fas fa-bars" style="margin-right: 5px; color: #666;"></i> 
+                        Menu <i class="fas fa-chevron-right" style="font-size: 0.8em; margin: 0 5px;"></i> 
+                        <strong>Iniciar Processo</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-idx">2</div>
+                <div class="step-content">
+                    <h3>Localizar o Tipo de Processo</h3>
+                    <p>
+                        Na tela de seleção de tipos de processo, utilize o campo de busca por palavra-chave para localizar o tipo correspondente à prestação de contas.
+                        Para o SDP, recomenda-se a pesquisa pelo termo:
+                    </p>
+                    <div class="instruction-box" style="margin-top: 10px;">
+                        <strong>Prestação de Contas de Suprimento de Fundos</strong>
+                    </div>
+
+                    <div style="margin-top: 15px; border: 1px solid #ccc; padding: 15px; background: #fff; border-radius: 4px;">
+                        <div style="font-weight: bold; color: var(--primary); margin-bottom: 5px;">Escolha o Tipo do Processo:</div>
+                        <input type="text" value="prestação" disabled style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #333; font-family: 'Segoe UI', sans-serif;">
+                        <div style="margin-top: 5px; padding: 5px;">Devolução de <mark style="background:#e3f2fd; color:#004a80; padding: 0 2px; font-weight:bold;">Prestação</mark> de Contas</div>
+                        <div style="margin-top: 2px; background: #f0f7ff; padding: 5px; font-weight: bold; border-radius: 3px; border-left: 3px solid var(--secondary); color: var(--primary);">
+                            <mark style="background:#e3f2fd; color:#004a80; padding: 0 2px;">Prestação</mark> de Contas de Suprimento de Fundos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-idx">3</div>
+                <div class="step-content">
+                    <h3>Preencher os Dados do Processo</h3>
+                    <p>
+                        Ao confirmar o tipo de processo, será exibida a tela “Iniciar Processo”, com os campos a serem preenchidos. O campo
+                        <strong>Tipo do Processo</strong> será preenchido automaticamente pelo sistema, com base na seleção realizada.
+                    </p>
+
+                    <div style="margin-top: 15px; background: #fdfdfd; border: 1px solid #ccc; padding: 20px; border-radius: 4px; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Tipo do Processo:</div>
+                            <div style="background: #eee; padding: 8px; border: 1px solid #ccc; border-radius: 3px; color: #555;">
+                                Prestação de Contas de Suprimento de Fundos
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 700; margin-bottom: 5px; color: #333;">
+                                Especificação: 
+                                <span style="font-weight:400; color:var(--primary); font-size:0.8em;">(Utilize o padrão sugerido pela 4ª CRE)</span>
+                            </div>
+                            <div style="background: #fff; padding: 8px; border: 1px solid #aaa; border-radius: 3px; color: #000; font-family: 'Courier New', monospace; font-weight: 700; letter-spacing: -0.5px;">
+                                SDP – E/CRE (04.xx.xxx)<br>
+                                NOME DA ESCOLA .
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Classificação por Assuntos:</div>
+                            <div style="background: #fff; padding: 8px; border: 1px solid #aaa; border-radius: 3px; display: flex; justify-content: space-between; align-items: center;">
+                                <span>05.03.06.01 - Suprimento de fundos</span>
+                                <div style="color: #666; font-weight: bold; cursor: pointer;">X</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px; position: relative;">
+                            <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Interessados:</div>
+
+                            <div style="background: #e8f4fd; border-left: 4px solid #0077cc; padding: 10px; margin-bottom: 10px; font-size: 0.85rem; color: #444;">
+                                <strong><i class="fas fa-info-circle"></i> Finalidade do campo</strong><br>
+                                Permite registrar pessoas, unidades ou entidades que possuem interesse direto ou indireto no processo, facilitando a localização posterior e
+                                garantindo que todos os envolvidos possam acompanhar sua tramitação.
+                            </div>
+
+                            <div style="display: flex; gap: 5px;">
+                                <div style="flex: 1; background: #fff; padding: 8px; border: 1px solid #aaa; border-radius: 3px; color: #555; min-height: 38px;">
+                                    <span style="background: #e0e0e0; padding: 2px 5px; border-radius: 3px; font-size: 0.85em; border: 1px solid #ccc;">
+                                        10729 - Gerência de Administração (E/4a.CRE/GAD) 
+                                        <i class="fas fa-times" style="font-size: 0.8em; margin-left: 5px;"></i>
+                                    </span>
+                                </div>
+                                <button style="background: #f0f0f0; border: 1px solid #ccc; border-radius: 3px; width: 40px; cursor: pointer;" title="Buscar Interessado">
+                                    <i class="fas fa-search" style="color: #004a80;"></i>
+                                </button>
+                            </div>
+
+                            <div style="margin-top: 10px; border: 1px solid #a71d48; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                <div style="background: #a71d48; color: white; padding: 5px 10px; font-weight: bold; font-size: 0.9em; display: flex; justify-content: space-between;">
+                                    <span>Selecionar Contatos</span>
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div style="background: #fff; padding: 15px;">
+                                    <div style="font-weight: 600; font-size: 0.85em; margin-bottom: 5px;">Palavras-chave para pesquisa:</div>
+                                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                        <input type="text" value="GAD" disabled style="flex: 1; padding: 5px; border: 1px solid #ccc; background: #eee;">
+                                        <button style="padding: 5px 10px; border: 1px solid #ccc; background: #f9f9f9; cursor: pointer;">Pesquisar</button>
+                                    </div>
+
+                                    <div style="border: 1px solid #eee;">
+                                        <div style="padding: 8px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; background: #f2f2f2;">
+                                            <i class="far fa-check-square" style="color: #0077cc;"></i> 
+                                            <span style="font-size: 0.85em;">10729 - Gerência de Administração (E/4a.CRE/GAD)</span>
+                                        </div>
+                                        <div style="padding: 8px; display: flex; align-items: center; gap: 10px; opacity: 0.5;">
+                                            <i class="far fa-square"></i> 
+                                            <span style="font-size: 0.85em;">10734 - Gerência de Administração (E/5a.CRE/GAD)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 5px;">
+                            <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Nível de Acesso</div>
+                            <div style="background: #ffffdd; padding: 10px; border: 1px solid #ccc; border-radius: 3px;">
+                                <label style="margin-right: 15px;"><input type="radio" disabled> Sigiloso</label>
+                                <label style="margin-right: 15px;"><input type="radio" disabled> Restrito</label>
+                                <label><input type="radio" checked disabled> <strong>Público</strong></label>
+                            </div>
+                        </div>
+
+                        <div style="text-align: right; margin-top: 20px;">
+                            <button style="background: #fff; border: 1px solid #ccc; padding: 5px 15px; cursor: pointer; margin-right: 5px;">Voltar</button>
+                            <button style="background: #eee; border: 1px solid #999; padding: 5px 15px; cursor: pointer; font-weight: bold;">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASSO 2 -->
+        <section id="step2">
+            <h2 class="section-title"><i class="fas fa-pen-nib"></i> 2. Despacho Inicial da Prestação de Contas</h2>
+
+            <div class="step">
+                <div class="step-idx">1</div>
+                <div class="step-content">
+                    <h3>Incluir o Documento de Despacho</h3>
+                    <p>
+                        Após a criação do processo, a tela principal exibirá o número de protocolo e a “árvore” ainda sem documentos. Para registrar o despacho inicial da
+                        unidade, utilize a barra de ícones superior e selecione a opção <strong>“Incluir Documento”</strong>.
+                    </p>
+
+                    <div style="margin-top: 10px; display: inline-block; background: #f4f4f4; padding: 8px 15px; border: 1px solid #ccc; border-radius: 4px;">
+                        <i class="far fa-file" style="font-size: 1.2em; position: relative;">
+                            <i class="fas fa-star" style="font-size: 0.5em; color: var(--primary); position: absolute; top: -2px; right: -4px; -webkit-text-stroke: 1px #fff;"></i>
+                        </i>
+                        <span style="margin-left: 8px; font-weight: 600; font-size: 0.9em; color: #333;">Incluir Documento</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-idx">2</div>
+                <div class="step-content">
+                    <h3>Configurar o Documento do Tipo “Despacho”</h3>
+                    <p>
+                        Na janela “Gerar Documento”, pesquise pelo tipo <strong>Despacho</strong> e selecione-o. Em seguida, configure os campos de texto inicial, nome na árvore,
+                        classificação e nível de acesso, conforme a orientação abaixo:
+                    </p>
+
+                    <div style="background: #fdfdfd; border: 1px solid #ccc; padding: 20px; border-radius: 4px; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+
+                        <div style="border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.1em; font-weight: bold; color: #333;">
+                            Gerar Documento
+                        </div>
+
+                        <div style="margin-bottom: 15px; border: 1px solid #ccc; padding: 15px; background: #fff; position: relative;">
+                            <span style="background: var(--primary); color: white; padding: 2px 8px; font-size: 0.8em; position: absolute; top: -10px; left: 10px; border-radius: 3px;">Texto Inicial</span>
+
+                            <div style="margin-top: 5px;">
+                                <div style="margin-bottom: 5px;">
+                                    <input type="radio" disabled> <span style="color: #666;">Documento Modelo</span>
+                                </div>
+                                <div style="margin-bottom: 5px;">
+                                    <input type="radio" disabled> <span style="color: #333;">Texto Padrão</span> 
+                                    <span style="font-size: 0.85em; color: #666; font-style: italic;">(Selecione caso exista modelo institucional salvo)</span>
+                                </div>
+                                <div>
+                                    <input type="radio" checked disabled> <strong>Nenhum</strong> 
+                                    <span style="font-size: 0.85em; color: var(--success); font-weight: bold;">(Utilize para redigir o texto do despacho do zero)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; gap: 15px;">
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Nome na Árvore:</div>
+                                <div style="background: #fff; padding: 8px; border: 1px solid #aaa; border-radius: 3px; font-family: monospace; font-weight: 700;">INICIAL</div>
+                            </div>
+
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Classificação por Assuntos:</div>
+                                <div style="background: #eee; padding: 8px; border: 1px solid #ccc; border-radius: 3px; color: #555; font-style: italic;">
+                                    (Preenchimento automático pelo sistema, de acordo com o processo)
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px; color: #333;">Nível de Acesso:</div>
+                                <div style="background: #ffffdd; padding: 10px; border: 1px solid #ccc; border-radius: 3px;">
+                                    <label style="margin-right: 15px;"><input type="radio" disabled> Sigiloso</label>
+                                    <label style="margin-right: 15px;"><input type="radio" disabled> Restrito</label>
+                                    <label><input type="radio" checked disabled> <strong>Público</strong></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: right; margin-top: 20px;">
+                            <button style="background: #eee; border: 1px solid #999; padding: 5px 15px; cursor: pointer; font-weight: bold; color: #333;">Confirmar Dados</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-idx">3</div>
+                <div class="step-content">
+                    <h3>Redigir, Assinar e Alterar o Despacho</h3>
+                    <p>
+                        Ao clicar em “Confirmar Dados”, o editor de texto do SEI!RIO será aberto para a redação do despacho. Concluída a redação, proceda à assinatura
+                        eletrônica. Sempre que for necessário alterar o conteúdo, utilize o ícone de alteração localizado na árvore do processo.
+                    </p>
+
+                    <div style="margin-top: 15px; display: flex; align-items: center; gap: 15px; background: #fff; padding: 10px; border: 1px solid #eee; border-radius: 6px; width: fit-content;">
+                        <div style="position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: #f0f7ff; border-radius: 4px; border: 1px solid #cce5ff;">
+                            <i class="fas fa-file-alt" style="color: var(--primary); font-size: 1.2em;"></i>
+                            <i class="fas fa-pen" style="position: absolute; bottom: 2px; right: 2px; font-size: 0.7em; color: var(--primary); background: white; border-radius: 50%; padding: 2px; border: 1px solid var(--primary);"></i>
+                        </div>
+                        <div style="font-size: 0.9em; color: #555;">
+                            <strong>Alterar Documento</strong><br>
+                            Utilize este ícone para reabrir o despacho e efetuar ajustes no texto, sempre que necessário.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASSO 3 -->
+        <section id="step3">
+            <h2 class="section-title"><i class="fas fa-file-pdf"></i> 3. Demonstrativo de Despesas</h2>
+
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; text-transform: uppercase;">
+                    Procedimento para Inserção de Documentos Externos
+                </h3>
+                
+                <p style="font-size: 0.95rem; text-align: justify; text-justify: inter-word;">
+                    Documentos
+                    <span style="display: inline-block; vertical-align: middle; margin: 0 4px;">
+                        <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C4.89543 2 4 2.89543 4 4V26C4 27.1046 4.89543 28 6 28H18C19.1046 28 20 27.1046 20 26V8L14 2Z"
+                                  stroke="#004a80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+                            <path d="M14 2V8H20"
+                                  stroke="#004a80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    que não foram produzidos originalmente no ambiente do SEI!RIO (a exemplo de demonstrativos elaborados em planilha eletrônica e posteriormente convertidos em PDF)
+                    devem ser inseridos no processo por meio do tipo de documento <strong>Documento Externo</strong>, assegurando a padronização e a rastreabilidade dos registros.
+                </p>
+            </div>
+
+            <div class="instruction-box" style="border-left: 4px solid var(--secondary); margin-bottom: 2rem;">
+                <strong>Importante:</strong> Para demonstrativos gerados diretamente em meio digital (planilhas, relatórios, arquivos PDF emitidos por sistemas),
+                o campo <em>Formato</em> deve ser preenchido como <strong>Nato-digital</strong>. A opção <strong>Digitalizado nesta unidade</strong> deve ser utilizada exclusivamente
+                para documentos que estavam em suporte físico (papel) e foram digitalizados pela unidade escolar para inserção no SEI!RIO.
+            </div>
+
+            <div class="step">
+                <div class="step-idx">1</div>
+                <div class="step-content">
+                    <h3>Configuração do Documento Externo (Demonstrativo de Despesas)</h3>
+                    <p>
+                        Após acessar o processo e acionar o comando <strong>Incluir Documento</strong>, selecione o tipo <strong>Documento Externo</strong> na lista de modelos e preencha
+                        os campos obrigatórios conforme o padrão abaixo:
+                    </p>
+
+                    <div class="data-grid">
+                        <div class="data-field">
+                            <span class="data-label">Tipo de Documento</span>
+                            <div class="data-val">Documento Externo</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Nome na Árvore</span>
+                            <div class="data-val">DEMONSTRATIVO DE DESPESAS – Mês/Ano</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Data do Documento</span>
+                            <div class="data-val">Data de emissão do demonstrativo</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Formato</span>
+                            <div class="data-val">Nato-digital</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #555; text-align: justify; text-justify: inter-word;">
+                        Recomenda-se que o arquivo em PDF seja nomeado de forma clara e padronizada, contendo a identificação do programa, da unidade e do período,
+                        por exemplo: <strong>“DEMONSTRATIVO_SDP_E4xx_xxxxx_Ago-2025.pdf”</strong>. Tal prática facilita a conferência, a pesquisa e a conciliação
+                        com os registros internos da escola e da 4ª CRE.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASSO 4 -->
+        <section id="step4">
+            <h2 class="section-title"><i class="fas fa-receipt"></i> 4. Notas Fiscais</h2>
+
+            <p>
+                As Notas Fiscais relativas às despesas executadas com recursos do SDP devem ser anexadas ao mesmo processo, igualmente mediante utilização do tipo
+                <strong>Documento Externo</strong>, garantindo o encadeamento entre o despacho inicial, o demonstrativo de despesas e os comprovantes fiscais.
+            </p>
+
+            <div class="instruction-box" style="border-left: 4px solid var(--secondary); margin: 1.5rem 0 2rem 0;">
+                <strong>Orientação:</strong> Quando se tratar de <strong>NFS-e</strong> ou documento fiscal emitido eletronicamente e salvo em PDF, o campo
+                <em>Formato</em> deve ser preenchido como <strong>Nato-digital</strong>. Caso a unidade disponha apenas do DANFE ou de comprovante em papel, posteriormente escaneado,
+                deverá ser selecionada a opção <strong>Digitalizado nesta unidade</strong>.
+            </div>
+
+            <div class="step">
+                <div class="step-idx">1</div>
+                <div class="step-content">
+                    <h3>Configuração do Documento Externo (Nota Fiscal)</h3>
+                    <p>
+                        Repita o procedimento utilizado para o demonstrativo, selecionando <strong>Documento Externo</strong> e preenchendo os campos de identificação de forma
+                        padronizada:
+                    </p>
+
+                    <div class="data-grid">
+                        <div class="data-field">
+                            <span class="data-label">Tipo de Documento</span>
+                            <div class="data-val">Documento Externo</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Nome na Árvore</span>
+                            <div class="data-val">NOTA FISCAL – Nome da Empresa – Nº da NF</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Número</span>
+                            <div class="data-val">Número da Nota Fiscal</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Data do Documento</span>
+                            <div class="data-val">Data de emissão da Nota Fiscal</div>
+                        </div>
+                        <div class="data-field">
+                            <span class="data-label">Formato</span>
+                            <div class="data-val">Nato-digital ou Digitalizado, conforme o caso</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #555; text-align: justify; text-justify: inter-word;">
+                        Sugere-se adotar um padrão de nomenclatura para os arquivos PDF que favoreça a conferência e o cruzamento de informações, como por exemplo:
+                        <strong>“NF_EMPRESA_XYZ_000123_Ago-2025.pdf”</strong>. Esse cuidado reduz a probabilidade de equívocos na análise da prestação de contas
+                        e fortalece a transparência da gestão.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASSO 5 - CHECKLIST -->
+        
+        <!-- PASSO 5 - CHECKLIST -->
+        <section id="checklist">
+            <h2 class="section-title"><i class="fas fa-list-check"></i> 5. Checklist Final da Prestação de Contas</h2>
+
+            <p class="checklist-lead">
+                Antes de encaminhar o processo de Prestação de Contas do SDP à 4ª CRE, utilize o checklist abaixo como conferência
+                rápida. Cada item corresponde a um ponto crítico de atenção para garantir padronização, completude e segurança
+                documental no SEI!RIO.
+            </p>
+
+            <div class="checklist-grid">
+                <div class="check-item">
+                    <div class="check-icon">1</div>
+                    <div>
+                        <div class="check-body-title">Tipo do Processo</div>
+                        <div class="check-body-text">
+                            Conferir se o tipo do processo foi corretamente selecionado como
+                            <strong>“Prestação de Contas de Suprimento de Fundos”</strong>, evitando uso de tipos genéricos ou inadequados.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">2</div>
+                    <div>
+                        <div class="check-body-title">Especificação do Processo</div>
+                        <div class="check-body-text">
+                            Verificar se a <strong>Especificação</strong> segue o padrão orientado pela 4ª CRE
+                            (por exemplo: <strong>“SDP – E/CRE (04.xx.xxx) – Nome da Escola”</strong>), permitindo rápida identificação da unidade e do programa.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">3</div>
+                    <div>
+                        <div class="check-body-title">Classificação por Assuntos</div>
+                        <div class="check-body-text">
+                            Certificar-se de que a <strong>Classificação por Assuntos</strong> está adequada ao tema
+                            <strong>“Suprimento de fundos”</strong> e foi conferida antes do salvamento inicial do processo.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">4</div>
+                    <div>
+                        <div class="check-body-title">Interessados Registrados</div>
+                        <div class="check-body-text">
+                            Conferir se o campo <strong>Interessados</strong> inclui, no mínimo, a unidade escolar e a
+                            <strong>GAD/4ª CRE</strong>, facilitando o acompanhamento do processo pelas instâncias envolvidas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">5</div>
+                    <div>
+                        <div class="check-body-title">Nível de Acesso</div>
+                        <div class="check-body-text">
+                            Verificar se o <strong>Nível de Acesso</strong> está compatível com o conteúdo do processo
+                            (em regra, <strong>Público</strong>, salvo exceções justificadas), observando as orientações da SME e da LGPD.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">6</div>
+                    <div>
+                        <div class="check-body-title">Despacho Inicial Assinado</div>
+                        <div class="check-body-text">
+                            Confirmar se o <strong>Despacho Inicial</strong> da unidade escolar foi redigido com clareza,
+                            encontra-se devidamente <strong>assinado eletronicamente</strong> e aparece na árvore do processo com o ícone de documento assinado.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">7</div>
+                    <div>
+                        <div class="check-body-title">Demonstrativo de Despesas Anexado</div>
+                        <div class="check-body-text">
+                            Verificar se o <strong>Demonstrativo de Despesas</strong> está anexado como
+                            <strong>Documento Externo</strong>, com <em>Nome na Árvore</em> padronizado (ex.: “DEMONSTRATIVO DE DESPESAS – Mês/Ano”)
+                            e data compatível com o período da prestação.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">8</div>
+                    <div>
+                        <div class="check-body-title">Notas Fiscais Correspondentes</div>
+                        <div class="check-body-text">
+                            Conferir se <strong>todas as Notas Fiscais</strong> vinculadas à execução do SDP foram anexadas como
+                            Documento Externo, com número, empresa e data corretamente indicados no cadastro do documento.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">9</div>
+                    <div>
+                        <div class="check-body-title">Formato do Documento Externo</div>
+                        <div class="check-body-text">
+                            Avaliar se o campo <strong>Formato</strong> foi preenchido de forma correta: 
+                            <strong>Nato-digital</strong> para documentos gerados diretamente em meio eletrônico (NFS-e, PDFs emitidos por sistema, planilhas convertidas)
+                            e <strong>Digitalizado nesta unidade</strong> apenas para documentos escaneados a partir de originais em papel.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">10</div>
+                    <div>
+                        <div class="check-body-title">Nomenclatura dos Arquivos</div>
+                        <div class="check-body-text">
+                            Verificar se os arquivos anexados (demonstrativos, notas fiscais etc.) possuem
+                            <strong>nomes claros e padronizados</strong> (ex.: “NF_EMPRESA_000123_Mes-Ano.pdf”),
+                            favorecendo a conferência por terceiros e a busca futura.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">11</div>
+                    <div>
+                        <div class="check-body-title">Assinaturas Eletrônicas Pendentes</div>
+                        <div class="check-body-text">
+                            Certificar-se de que <strong>não há documentos pendentes de assinatura</strong> na árvore do processo,
+                            especialmente o despacho inicial e eventuais manifestações da direção ou de responsáveis pela execução.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-icon">12</div>
+                    <div>
+                        <div class="check-body-title">Coerência de Valores</div>
+                        <div class="check-body-text">
+                            Confirmar se os valores registrados no <strong>Demonstrativo de Despesas</strong>, nas
+                            <strong>Notas Fiscais</strong> e nos controles internos da unidade (planilhas, extratos, controles manuais)
+                            estão <strong>coerentes entre si</strong>, sem divergências aparentes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instruction-box" style="margin-top: 2rem;">
+                <strong>Dica de Governança:</strong>
+                recomenda-se que a unidade escolar mantenha, em seus próprios arquivos internos (digitais ou físicos),
+                cópia do demonstrativo, das notas fiscais e de eventuais controles auxiliares utilizados, de modo a
+                facilitar futuras conferências, auditorias e esclarecimentos solicitados pela 4ª CRE, SME ou órgãos de controle.
+            </div>
+        </section>
+
+
+        <!-- FERRAMENTAS IA -->
+        <section id="tools">
+            <div class="ai-tool">
+                <h3 style="color: var(--primary);"><i class="fas fa-robot"></i> Assistente de Redação – Minuta de Despacho</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 1rem;">
+                    Preencha os campos abaixo para gerar automaticamente uma sugestão de texto para o despacho inicial de Prestação de Contas.
+                    A redação gerada é apenas uma <strong>minuta</strong>, devendo ser revisada e ajustada pela direção da unidade escolar.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" id="ai-school" placeholder="Nome da Escola" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    <input type="text" id="ai-month" placeholder="Mês/Ano (ex: Agosto/2025)" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                </div>
+                <input type="text" id="ai-item" placeholder="Empresa/Serviço/Item adquirido (ex: gêneros alimentícios)" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 100%; margin-bottom: 10px;">
+                <input type="text" id="ai-value" placeholder="Valor total (R$)" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 100%;">
+
+                <button class="ai-btn" onclick="generateText()"><i class="fas fa-pen-fancy"></i> Gerar texto do despacho</button>
+
+                <div id="ai-output" class="ai-output"></div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <h4 style="color: var(--primary); margin-bottom: 1rem;">4ª Coordenadoria Regional de Educação</h4>
+
+        <div class="footer-info">
+            <div class="footer-item"><i class="fas fa-envelope"></i> gad4cre@rioeduca.net</div>
+            <div class="footer-item"><i class="fas fa-phone"></i> (21) 3975-5844</div>
+            <div class="footer-item"><i class="fas fa-map-marker-alt"></i> Olaria, Rio de Janeiro - RJ</div>
+        </div>
+
+        <div style="font-size: 0.8rem; opacity: 0.6;">
+            &copy; 2025 Gerência de Administração – Documento orientador
+        </div>
+    </div>
+</footer>
+
+<div style="position: fixed; bottom: 30px; right: 30px; background: var(--primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 200;" onclick="alert('O Chatbot estaria ativo aqui!')">
+    <i class="fas fa-comment-dots" style="font-size: 24px;"></i>
+</div>
+
+<script>
+    function generateText() {
+        const school = document.getElementById('ai-school').value.trim();
+        const month = document.getElementById('ai-month').value.trim();
+        const item  = document.getElementById('ai-item').value.trim();
+        const val   = document.getElementById('ai-value').value.trim();
+
+        if (!school || !month || !item) {
+            alert('Preencha, ao menos, o Nome da Escola, o Mês/Ano e o campo Empresa/Serviço/Item adquirido.');
+            return;
+        }
+
+        const valorTexto = val ? `, no valor total de R$ ${val}` : '';
+
+        const text = 
+`À Gerência de Administração (E/4ª CRE/GAD),
+
+Encaminhamos, para análise e providências cabíveis, a Prestação de Contas referente ao mês de ${month}, da unidade escolar ${school}, relativa às despesas realizadas com ${item}${valorTexto}.
+
+Informamos que o demonstrativo de despesas, as notas fiscais correspondentes e demais documentos comprobatórios foram devidamente conferidos pela gestão da unidade, encontrando-se anexados ao presente processo, para conhecimento e apreciação dessa Gerência.
+
+Solicitamos a conferência dos elementos apresentados e, estando em ordem, o regular prosseguimento dos trâmites de praxe.
+
+Atenciosamente,
+
+Direção da unidade escolar.`;
+
+        const out = document.getElementById('ai-output');
+        out.style.display = 'block';
+        out.innerText = text;
+    }
+</script>
+</body>
+</html>
